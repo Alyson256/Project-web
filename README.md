@@ -1,30 +1,34 @@
-# Projeto-ADS
+# 🏺 Artesanato Rosa Mística - Vitrine Digital e Gestão O2O
 
+> **Status:** 🚀 MVP em Fase de Validação e Amostragem
+> **Deploy:** [em breve...]
 
-# 🛍️ Plataforma de Catálogo O2O (Online-to-Offline)
-> **Status:** 🚧 Em Desenvolvimento (Fase de Requisitos e Modelagem)
-> **Aviso de Privacidade:** O código-fonte deste repositório é mantido em ambiente privado (Stealth Mode) por conter regras de negócios específicas e dados sensíveis em conformidade com a LGPD. Este documento serve como registro arquitetural do projeto.
+## 🎯 Visão Geral
+Este projeto nasceu de uma necessidade real de digitalização de cooperativas de artesanato locais. Comércios e ateliês frequentemente sofrem com a dependência exclusiva do tráfego físico. 
 
-## 🎯 O Problema
-Comércios e ateliês locais frequentemente sofrem com a falta de presença digital estruturada. A dependência exclusiva do tráfego físico limita o alcance da marca e dificulta o reconhecimento do trabalho manual e artesanal.
+A solução desenvolvida é uma "Vitrine Digital" baseada na arquitetura **O2O (Online-to-Offline)**. O objetivo é criar engajamento, transmitir a história da comunidade e expor o catálogo no ambiente digital, enquanto a negociação e finalização ocorrem no meio físico (integração direta via API do WhatsApp).
 
-## 💡 A Solução (Projeto de Extensão)
-Desenvolvimento de uma "Vitrine Digital" modular, focada em humanizar o perfil dos colaboradores e facilitar a amostragem de produtos. A arquitetura segue o conceito **O2O (Online-to-Offline)**, onde o engajamento e a amostragem ocorrem no ambiente digital, enquanto a negociação e retirada finalizam no meio físico (integração direta via API do WhatsApp).
+## 🛡️ Segurança & Conformidade (LGPD by Design)
+Uma premissa fundamental da arquitetura foi a **redução da superfície de ataque**.
+Para garantir total conformidade com a LGPD (Lei Geral de Proteção de Dados), o sistema foi projetado para **não coletar ou armazenar dados pessoais de clientes** (como CPF, endereços ou perfis de navegação). O banco de dados foca estritamente no gerenciamento do catálogo de produtos e eventos da cooperativa, mitigando riscos jurídicos e vazamento de dados sensíveis.
 
-## 🛠️ Stack Tecnológica & Infraestrutura
-- **Front-end:** HTML5, CSS3, JavaScript (Foco em design minimalista e responsividade).
-- **Lógica & Automação (Planejado):** Python / C (Manipulação de dados).
-- **Infraestrutura Cloud (Planejado):** Oracle Cloud Infrastructure (OCI) e hospedagem de instâncias Linux.
-- **Modelagem de Dados:** SQL (Estruturação de catálogo e perfis com controle de acesso - RBAC).
+## 🏗️ Arquitetura e Stack Tecnológica
+O projeto foi pivotado de uma infraestrutura tradicional (SQL/Oracle) para uma arquitetura moderna e Serverless, garantindo alta disponibilidade e baixo custo de manutenção.
 
-## 📐 Arquitetura Visual (Wireframe Inicial)
-O projeto prioriza a retenção do usuário nos primeiros 5 segundos através de:
-1. **Design Minimalista e Cativo:** Feed limpo para destaque visual das peças.
-2. **Sistema de Amostragem:** Navegação em *Cards* com disponibilidade em tempo real.
-3. **Perfis Humanizados:** Seção dedicada aos métodos e habilidades individuais de cada artesão.
+- **Front-end:** HTML5, CSS3, Vanilla JavaScript (Design Minimalista, Mobile-First).
+- **Backend & Banco de Dados:** Firebase (Firestore NoSQL).
+- **Autenticação:** Firebase Auth.
+- **Workflow:** AI-Assisted Development (Google AI Studio) para prototipagem ágil de UI/UX e estruturação de rotas.
 
-## 🚀 Próximos Passos (Roadmap)
-- [x] Levantamento de Requisitos in loco.
-- [x] Auditoria de Presença Digital (Otimização de Google Business Profile).
-- [ ] Deploy do MVP Front-end.
-- [ ] Integração com sistema de notificações e contatos organizados.
+## 🔐 Controle de Acesso (RBAC) - *Em Implementação*
+Apesar do escopo atual focar na amostragem pública (Vitrine), o núcleo do sistema já contempla um robusto **Role-Based Access Control (RBAC)** oculto para a gestão da cooperativa, dividido em três camadas de segurança:
+1. **Admin (Master):** Acesso à infraestrutura de banco de dados e recuperação de sistema.
+2. **Gerência:** Autorização para aprovar envios de novos produtos e gerenciar o catálogo.
+3. **Colaboradores (Artesãos):** Interface simplificada apenas para submissão de fotos e informações de novos itens.
+
+## 🚀 Roadmap e Próximos Passos
+- [x] Levantamento de Requisitos in loco e UI/UX Minimalista.
+- [x] Otimização de SEO e Presença Digital.
+- [x] Deploy da Vitrine Digital (MVP de Amostragem).
+- [ ] Integração do painel de controle restrito (Firebase Auth).
+- [ ] Conexão do fluxo de comunicação via Bot do Telegram para notificações em tempo real.
