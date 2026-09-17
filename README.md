@@ -41,5 +41,4 @@ Apesar do escopo atual focar na amostragem pública (Vitrine), o núcleo do sist
 - [x] Deploy da Vitrine Digital (MVP de Amostragem).
 - [x] backend em django + python(fase atual).
 - [ ] Integração do painel de controle restrito (Firebase Auth).
-- [ ] Conexão do fluxo de comunicação via gmail para notificações em tempo real.
-- [ ] mais features seram adicionadas...
+- [ ] Conexão do fluxo de comunicação via Bot do Telegram para notificações em tempo real.
