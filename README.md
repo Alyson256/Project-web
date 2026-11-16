@@ -1,34 +1,73 @@
-# 🏺 Artesanato Rosa Mística - Vitrine Digital e Gestão O2O
+# Artesanato e Espaço — Associação Julieta Barros
 
-> **Status:** 🚀 MVP em Fase de Validação e Amostragem
-> **Deploy:** [em breve...]
+> **Status:** MVP Frontend Concluído | Backend & Integração em Estruturação
+> **Deploy:** Em breve...
 
-## 🎯 Visão Geral
-Este projeto nasceu de uma necessidade real de digitalização de cooperativas de artesanato locais. Comércios e ateliês frequentemente sofrem com a dependência exclusiva do tráfego físico. 
+## Visão Geral e Objetivo
 
-A solução desenvolvida é uma "Vitrine Digital" baseada na arquitetura **O2O (Online-to-Offline)**. O objetivo é criar engajamento, transmitir a história da comunidade e expor o catálogo no ambiente digital, enquanto a negociação e finalização ocorrem no meio físico (integração direta via API do WhatsApp).
+Este projeto nasceu da necessidade real de inclusão digital de artesãos e gestores locais (Associação Julieta Barros — Departamento de Vendas Rosa Mística, Natal/RN). Comércios comunitários frequentemente sofrem com a dependência exclusiva do tráfego físico e com barreiras tecnológicas.
 
-## 🛡️ Segurança & Conformidade (LGPD by Design)
-Uma premissa fundamental da arquitetura foi a **redução da superfície de ataque**.
-Para garantir total conformidade com a LGPD (Lei Geral de Proteção de Dados), o sistema foi projetado para **não coletar ou armazenar dados pessoais de clientes** (como CPF, endereços ou perfis de navegação). O banco de dados foca estritamente no gerenciamento do catálogo de produtos e eventos da cooperativa, mitigando riscos jurídicos e vazamento de dados sensíveis.
+A solução desenvolvida é uma **Vitrine Digital** baseada na arquitetura **O2O (Online-to-Offline)**:
+* **Online:** Exposição do catálogo de peças, agenda de cursos/oficinas e preservação da história do ateliê.
+* **Offline:** Negociação direta e humanizada entre comprador e artesão via integração dinâmica com o WhatsApp.
 
-## 🏗️ Arquitetura e Stack Tecnológica
-O projeto foi pivotado de uma infraestrutura tradicional (SQL/Oracle) para uma arquitetura moderna e Serverless, garantindo alta disponibilidade e baixo custo de manutenção.
+### Acessibilidade como Requisito Base (*Accessibility by Design*)
+Como a maior parte da equipe de gestão e dos artesãos pertence à terceira idade, a interface foi projetada com foco em **baixa carga cognitiva**, navegação *mobile-first*, alto contraste, ajuste tipográfico nativo e um **Ambiente de Treino Isolado (Sandbox)** para capacitação segura sem risco de alterações em produção.
 
-- **Front-end:** HTML5, CSS3, Vanilla JavaScript (Design Minimalista, Mobile-First).
-- **Backend & Banco de Dados:** Firebase (Firestore NoSQL).
-- **Autenticação:** Firebase Auth.
-- **Workflow:** AI-Assisted Development (Google AI Studio) para prototipagem ágil de UI/UX e estruturação de rotas.
+---
 
-## 🔐 Controle de Acesso (RBAC) - *Em Implementação*
-Apesar do escopo atual focar na amostragem pública (Vitrine), o núcleo do sistema já contempla um robusto **Role-Based Access Control (RBAC)** oculto para a gestão da cooperativa, dividido em três camadas de segurança:
-1. **Admin (Master):** Acesso à infraestrutura de banco de dados e recuperação de sistema.
-2. **Gerência:** Autorização para aprovar envios de novos produtos e gerenciar o catálogo.
-3. **Colaboradores (Artesãos):** Interface simplificada apenas para submissão de fotos e informações de novos itens.
+## Segurança e Privacidade (LGPD by Design)
 
-## 🚀 Roadmap e Próximos Passos
-- [x] Levantamento de Requisitos in loco e UI/UX Minimalista.
-- [x] Otimização de SEO e Presença Digital.
-- [x] Deploy da Vitrine Digital (MVP de Amostragem).
-- [ ] Integração do painel de controle restrito (Firebase Auth).
-- [ ] Conexão do fluxo de comunicação via Bot do Telegram para notificações em tempo real.
+Para proteger os artesãos contra *scraping* de contatos e minimizar riscos jurídicos, o sistema aplica o princípio da **minimização de dados**:
+* **Proteção de Contato:** Os números de WhatsApp dos produtores não ficam expostos publicamente; o redirecionamento só é liberado após autenticação do visitante.
+* **Identidade Terceirizada:** O sistema não armazena senhas, CPFs, endereços ou dados financeiros. A autenticação ocorre exclusivamente via **Google OAuth2 (Firebase Auth)**, extraindo apenas nome, e-mail e foto de perfil para identificação básica.
+
+---
+
+## Arquitetura e Stack Tecnológica
+
+O sistema adota uma arquitetura desacoplada (SPA + API REST), separando a camada visual da lógica de negócio e persistência:
+
+* **Frontend:** React, TypeScript, Vite, Tailwind CSS e Framer Motion (com suporte a `prefers-reduced-motion` e internacionalização PT-BR/EN-US).
+* **Autenticação (IdP):** Firebase Authentication (Google Sign-In).
+* **Backend (API REST):** Python + Django REST Framework (DRF) com validação criptográfica via `firebase-admin`.
+* **Banco de Dados & Storage:** Banco relacional (PostgreSQL/SQLite) para regras de negócio e armazenamento em nuvem para mídias.
+* **Workflow de Prototipação:** AI-Assisted Development (Google AI Studio) para validação rápida de UI/UX.
+
+---
+
+## Controle de Acesso e Governança (RBAC)
+
+O ecossistema gerencia permissões através de uma estrutura híbrida (validação presencial pela gestão + controle digital), dividida em perfis específicos:
+
+1. **Visitante (Autenticado):** Acesso à vitrine, agenda e botão de contato direto via WhatsApp com mensagem pré-estruturada.
+2. **Aprendiz (Modo Sandbox):** Ambiente simulado para novos artesãos e gestores praticarem o uso da plataforma sem afetar o site público.
+3. **Produtor (Artesão):** Cadastro de peças, controle de estoque, aplicação de preços promocionais nominais e configuração do WhatsApp de vendas.
+4. **Gestor:** Curadoria e aprovação de peças submetidas, promoção de cargos (de Visitante/Aprendiz para Produtor), gestão de eventos e conteúdo institucional.
+5. **Administrador Técnico (SysAdmin):** Monitoramento de integridade do sistema, logs de auditoria e suporte técnico.
+
+---
+
+## Roadmap e Etapas de Desenvolvimento
+
+### Fase 1: Modelo Conceitual e Engenharia de Requisitos
+- [x] Levantamento de requisitos *in loco* com a gestão e artesãos do ateliê.
+- [x] Definição da arquitetura de papéis (RBAC) e fluxo de aprovação presencial/digital.
+- [x] Modelagem das regras de acessibilidade (WCAG AA) e fluxo O2O via WhatsApp.
+
+### Fase 2: Prototipação e MVP Frontend
+- [x] Estruturação da interface responsiva (*Mobile-First*) e Design System minimalista.
+- [x] Implementação do menu de acessibilidade nativo (fonte, contraste, dislexia e leitura em voz alta).
+- [x] Desenvolvimento dos painéis por cargo e do **Ambiente de Treino (Sandbox)**.
+- [x] Implementação de filtros dinâmicos, precificação promocional e alternância de idioma (PT/EN).
+
+### Fase 3: Backend, Persistência e Segurança *(Fase Atual)*
+- [ ] Configuração completa do ambiente Django REST Framework e modelagem do banco de dados.
+- [ ] Validação estrita do `idToken` do Firebase no backend (`firebase-admin`) e emissão de sessão JWT.
+- [ ] Substituição dos dados mockados por endpoints reais (Produtos, Agenda, Chamados e Auditoria).
+- [ ] Implementação de travas de integridade (bloqueio de edição em peças *Em revisão*) e upload de imagens.
+
+### Fase 4: Homologação e Deploy
+- [ ] Testes assistidos em campo com os gestores e produtores da associação.
+- [ ] Ocultação das ferramentas de simulação (`DEV`) e publicação em ambiente de produção.
+- [ ] Configuração de notificações por e-mail para chamados críticos de suporte.
