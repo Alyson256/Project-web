@@ -8,7 +8,7 @@
 Este projeto nasceu da necessidade real de inclusão digital de artesãos e gestores locais (Associação Julieta Barros — Departamento de Vendas Rosa Mística, Natal/RN). Comércios comunitários frequentemente sofrem com a dependência exclusiva do tráfego físico e com barreiras tecnológicas.
 
 A solução desenvolvida é uma **Vitrine Digital** baseada na arquitetura **O2O (Online-to-Offline)**:
-* **Online:** Exposição do catálogo de peças, agenda de cursos/oficinas e preservação da história do ateliê.
+* **Online:** Exposição do catálogo de peças, agenda de cursos/oficinas e preservação da história da associação.
 * **Offline:** Negociação direta e humanizada entre comprador e artesão via integração dinâmica com o WhatsApp.
 
 ### Acessibilidade como Requisito Base (*Accessibility by Design*)
