@@ -1,73 +1,145 @@
-# Artesanato e Espaço — Associação Julieta Barros
+# Associacao Julieta Barros - Vitrine Digital e Gestao Comunitaria
 
-> **Status:** MVP Frontend Concluído | Backend & Integração em Estruturação
-> **Deploy:** Em breve...
+[English Version](src/documents/READMEENG.MD)
 
-## Visão Geral e Objetivo
+Aplicacao web moderna (Frontend SPA) desenvolvida para a Associacao Julieta Barros e o Departamento de Vendas Rosa Mistica, localizada na Zona Norte de Natal/RN.
 
-Este projeto nasceu da necessidade real de inclusão digital de artesãos e gestores locais (Associação Julieta Barros — Departamento de Vendas Rosa Mística, Natal/RN). Comércios comunitários frequentemente sofrem com a dependência exclusiva do tráfego físico e com barreiras tecnológicas.
+O projeto foi concebido para atender cooperativas locais de artesanato sob o modelo O2O (Online-to-Offline), priorizando acessibilidade para pessoas idosas, usabilidade objetiva e conformidade estrita com a LGPD (Lei Geral de Protecao de Dados).
 
-A solução desenvolvida é uma **Vitrine Digital** baseada na arquitetura **O2O (Online-to-Offline)**:
-* **Online:** Exposição do catálogo de peças, agenda de cursos/oficinas e preservação da história da associação.
-* **Offline:** Negociação direta e humanizada entre comprador e artesão via integração dinâmica com o WhatsApp.
-
-### Acessibilidade como Requisito Base (*Accessibility by Design*)
-Como a maior parte da equipe de gestão e dos artesãos pertence à terceira idade, a interface foi projetada com foco em **baixa carga cognitiva**, navegação *mobile-first*, alto contraste, ajuste tipográfico nativo e um **Ambiente de Treino Isolado (Sandbox)** para capacitação segura sem risco de alterações em produção.
+![Preview do site](src/documents/img/preview.png)
+![login](src/documents/img/login.png)
 
 ---
 
-## Segurança e Privacidade (LGPD by Design)
+## Sumario
 
-Para proteger os artesãos contra *scraping* de contatos e minimizar riscos jurídicos, o sistema aplica o princípio da **minimização de dados**:
-* **Proteção de Contato:** Os números de WhatsApp dos produtores não ficam expostos publicamente; o redirecionamento só é liberado após autenticação do visitante.
-* **Identidade Terceirizada:** O sistema não armazena senhas, CPFs, endereços ou dados financeiros. A autenticação ocorre exclusivamente via **Google OAuth2 (Firebase Auth)**, extraindo apenas nome, e-mail e foto de perfil para identificação básica.
-
----
-
-## Arquitetura e Stack Tecnológica
-
-O sistema adota uma arquitetura desacoplada (SPA + API REST), separando a camada visual da lógica de negócio e persistência:
-
-* **Frontend:** React, TypeScript, Vite, Tailwind CSS e Framer Motion (com suporte a `prefers-reduced-motion` e internacionalização PT-BR/EN-US).
-* **Autenticação (IdP):** Firebase Authentication (Google Sign-In).
-* **Backend (API REST):** Python + Django REST Framework (DRF) com validação criptográfica via `firebase-admin`.
-* **Banco de Dados & Storage:** Banco relacional (PostgreSQL/SQLite) para regras de negócio e armazenamento em nuvem para mídias.
-* **Workflow de Prototipação:** AI-Assisted Development (Google AI Studio) para validação rápida de UI/UX.
+- [Visao Geral](#visao-geral)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Arquitetura e Conformidade](#arquitetura-e-conformidade)
+- [Uso de Inteligencia Artificial e Sustentabilidade](#uso-de-inteligencia-artificial-e-sustentabilidade)
+- [Etapas do Projeto](#etapas-do-projeto)
+- [Como Executar Localmente](#como-executar-localmente)
+- [Scripts Disponiveis](#scripts-disponiveis)
+- [Acessibilidade e Usabilidade](#acessibilidade-e-usabilidade)
 
 ---
 
-## Controle de Acesso e Governança (RBAC)
+## Visao Geral
 
-O ecossistema gerencia permissões através de uma estrutura híbrida (validação presencial pela gestão + controle digital), dividida em perfis específicos:
-
-1. **Visitante (Autenticado):** Acesso à vitrine, agenda e botão de contato direto via WhatsApp com mensagem pré-estruturada.
-2. **Aprendiz (Modo Sandbox):** Ambiente simulado para novos artesãos e gestores praticarem o uso da plataforma sem afetar o site público.
-3. **Produtor (Artesão):** Cadastro de peças, controle de estoque, aplicação de preços promocionais nominais e configuração do WhatsApp de vendas.
-4. **Gestor:** Curadoria e aprovação de peças submetidas, promoção de cargos (de Visitante/Aprendiz para Produtor), gestão de eventos e conteúdo institucional.
-5. **Administrador Técnico (SysAdmin):** Monitoramento de integridade do sistema, logs de auditoria e suporte técnico.
+A solucao oferece uma vitrine digital para valorização de pecas artesanais e divulgaçãoo de cursos e oficinas comunitarias. A negociação  ocorre no meio fisico ou por canal direto via WhatsApp, evitando a sobrecarga de cobranca online intermediada e reduzindo a exposicao de dados de compradores.
 
 ---
 
-## Roadmap e Etapas de Desenvolvimento
+## Tecnologias Utilizadas
 
-### Fase 1: Modelo Conceitual e Engenharia de Requisitos
-- [x] Levantamento de requisitos *in loco* com a gestão e artesãos do ateliê.
-- [x] Definição da arquitetura de papéis (RBAC) e fluxo de aprovação presencial/digital.
-- [x] Modelagem das regras de acessibilidade (WCAG AA) e fluxo O2O via WhatsApp.
+### Frontend
+- React 19
+- TypeScript
+- Vite 6
+- Tailwind CSS v4
+- React Router v7
+- Lucide React
+- Framer Motion
+- Vite PWA (Service Worker customizado e operacao offline)
 
-### Fase 2: Prototipação e MVP Frontend
-- [x] Estruturação da interface responsiva (*Mobile-First*) e Design System minimalista.
-- [x] Implementação do menu de acessibilidade nativo (fonte, contraste, dislexia e leitura em voz alta).
-- [x] Desenvolvimento dos painéis por cargo e do **Ambiente de Treino (Sandbox)**.
-- [x] Implementação de filtros dinâmicos, precificação promocional e alternância de idioma (PT/EN).
+### Backend e Persistencia (Arquitetura Planejada)
+- Python com Django e Django REST Framework
+- PostgreSQL (Banco de dados relacional oficial)
+- Autenticacao via JWT e sessoes com controle de acesso baseado em funcoes (RBAC)
 
-### Fase 3: Backend, Persistência e Segurança *(Fase Atual)*
-- [ ] Configuração completa do ambiente Django REST Framework e modelagem do banco de dados.
-- [ ] Validação estrita do `idToken` do Firebase no backend (`firebase-admin`) e emissão de sessão JWT.
-- [ ] Substituição dos dados mockados por endpoints reais (Produtos, Agenda, Chamados e Auditoria).
-- [ ] Implementação de travas de integridade (bloqueio de edição em peças *Em revisão*) e upload de imagens.
+---
 
-### Fase 4: Homologação e Deploy
-- [ ] Testes assistidos em campo com os gestores e produtores da associação.
-- [ ] Ocultação das ferramentas de simulação (`DEV`) e publicação em ambiente de produção.
-- [ ] Configuração de notificações por e-mail para chamados críticos de suporte.
+## Arquitetura e Conformidade
+
+- Desacoplamento Estrito: O frontend e 100% estatico e independente, comunicando-se exclusivamente por requisicoes HTTP REST em formato JSON.
+- LGPD by Design: Nao ha coleta ou armazenamento de dados sensiveis de visitantes na camada publica.
+- Persistencia Relacional: A estrutura de dados (artesaos, pecas, tecnicas, categorias e agenda de eventos) adota o modelo relacional via PostgreSQL, garantindo integridade referencial, consultas previsiveis e custo zero de leitura sob alta demanda.
+
+---
+
+## Uso de Inteligencia Artificial e Sustentabilidade
+
+- Apoio de Inteligencia Artificial: Ferramentas de IA foram empregadas no suporte a prototipagem de interface (UI/UX), desenho de recursos de acessibilidade para a terceira idade, refinamento dos fluxos O2O e estruturacao modular dos componentes em React.
+- Gestao de Riscos de Ausencia de Manutenção: Projetos comunitarios frequentemente enfrentam periodos prolongados sem equipe tecnica dedicada para manutencao continuada. As escolhas arquiteturais foram norteadas expressamente para mitigar esse risco:
+  - Adocao de padroes abertos da web, eliminando dependencias de plataformas proprietarias fechadas que poderiam descontinuar servicos ou instituir cobrancas imprevistas.
+  - A migracao definitiva para PostgreSQL e Django fundamenta-se na maturidade de mais de duas decadas, estabilidade e vasta documentacao dessas tecnologias, permitindo que futuros desenvolvedores ou voluntarios assumam o codigo sem barreiras proprietarias.
+  - O frontend desacoplado garante que a vitrine publica continue estavel, leve e operacional mesmo em eventuais indisponibilidades ou manutencoes do servidor de backend.
+- Vida Util e Resiliencia: A arquitetura prioriza longevidade operacional, facilidade de geracao de copias de seguranca (backups) e baixo custo de hospedagem, assegurando que o projeto permaneca util a comunidade por muitos anos com intervencao minima.
+
+---
+
+## Etapas do Projeto
+
+### Etapa 1: Interface do Usuario e Experiencia (Concluida)
+- [x] Prototipagem da identidade visual e fluxo Mobile-First.
+- [x] Vitrine responsiva de produtos com indicacao de status (Disponivel/Vendido).
+- [x] Modais informativos para contato direto via WhatsApp institucional ou artesao.
+- [x] Agenda publica de eventos e oficinas comunitarias.
+- [x] Painel de gestao com interfaces segmentadas por papel (Produtor, Gestor e Administrador).
+- [x] Recursos avancados de acessibilidade (ajuste de fonte, alto contraste e sintetizador de voz).
+- [x] Modo PWA com cache offline de produtos e paginas essenciais.
+
+### Etapa 2: Implementacao do Backend e Banco de Dados (Fase Atual)
+- [ ] Construcao da API REST com Django e Django REST Framework em Python.
+- [ ] Configuracao e modelagem de tabelas no PostgreSQL:
+  - Modelos de Usuarios e Perfis com RBAC (Administrador, Gestor, Produtor/Artesao).
+  - Catalogo de Produtos e Tecnicas Artesanais.
+  - Agenda de Cursos, Oficinas e Eventos do Espaco Comunitario.
+  - Modulo de Auditoria e Logs de Acoes Administrativas.
+- [ ] Autenticacao segura via tokens JWT e endpoints de sincronizacao de perfil.
+- [ ] Ativacao do painel Django Admin para controle operacional interno da diretoria.
+- [ ] Configuracao de armazenamento seguro para imagens e midias das pecas.
+
+### Etapa 3: Integracao de Producao e Publicacao
+- [ ] Conexao direta dos servicos do frontend (`src/services/djangoApi.ts`) com o backend Django.
+- [ ] Homologacao dos fluxos de aprovacao de catalogo e atualizacao de status.
+- [ ] Implantacao em ambiente de producao com servidor PostgreSQL dedicado.
+- [ ] Automacao de backup continuo e monitoramento de saude via `/api/health`.
+
+---
+
+## Como Executar Localmente
+
+### Pre-requisitos
+- Node.js (versao 18 ou superior)
+- npm ou gerenciador de pacotes equivalente
+
+### Procedimento
+
+1. Instale as dependencias do projeto:
+   ```bash
+   npm install
+   ```
+
+2. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+
+3. Acesse a aplicacao no navegador:
+   ```text
+   http://localhost:3000
+   ```
+
+---
+
+## Scripts Disponiveis
+
+- `npm run dev`: Executa o servidor de desenvolvimento com Hot Module Replacement.
+- `npm run build`: Gera a compilacao otimizada de producao no diretorio `dist/`.
+- `npm run preview`: Executa localmente o build gerado em `dist/`.
+- `npm run lint`: Valida tipos TypeScript sem emitir arquivos (`tsc --noEmit`).
+
+---
+
+## Acessibilidade e Usabilidade
+
+- Modos visuais: Tema Claro, Tema Escuro e Modo de Alto Contraste.
+- Tipografia: Escala de texto com redimensionamento dinamico e opcao de fonte para dislexia.
+- Leitura por voz: Integracao nativa com a Web Speech API para leitura em voz alta.
+- Navegacao facilitada: Suporte integral a teclado, traps de foco em modais e alertas descritivos para leitores de tela.
+
+
+## autor
+
+Alyson256 (https://github.com/Alyson256)
