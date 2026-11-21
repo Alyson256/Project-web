@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant high-contrast (&:where(.high-contrast, .high-contrast *));
+
+:root {
+  color-scheme: light;
+  --surface-canvas: #fdfbf7;
+  --surface-card: var(--color-white);
+  --surface-nav: #fdfbf7;
+  --surface-subtle: var(--color-stone-50);
+  --text-main: var(--color-stone-900);
+  --text-muted: var(--color-stone-700);
+  --border-subtle: var(--color-stone-200);
+  --focus-ring: var(--color-green-600);
+}
+
+.dark {
+  color-scheme: dark;
+  --surface-canvas: var(--color-stone-950);
+  --surface-card: var(--color-stone-900);
+  --surface-nav: var(--color-stone-900);
+  --surface-subtle: var(--color-stone-800);
+  --text-main: var(--color-stone-100);
+  --text-muted: var(--color-stone-300);
+  --border-subtle: var(--color-stone-800);
+  --focus-ring: var(--color-emerald-400);
+}
+
+@theme inline {
+  --color-canvas: var(--surface-canvas);
+  --color-surface-card: var(--surface-card);
+  --color-surface-nav: var(--surface-nav);
+  --color-surface-subtle: var(--surface-subtle);
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--surface-canvas);
+    color: var(--text-main);
+  }
+}
+
+@media print {
+  @page {
+    margin: 2cm;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background-color: white !important;
+    color: black !important;
+    font-size: 16pt !important; /* Larger font for elderly users */
+    line-height: 1.6 !important;
+  }
+
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+
+  html, body, #root, .h-screen {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .overflow-hidden, .overflow-y-auto, .overflow-x-auto {
+    overflow: visible !important;
+  }
+
+  .flex.h-screen {
+    display: block !important;
+    height: auto !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    color: black !important;
+  }
+  
+  body, main, section, footer, div, span, p, h1, h2, h3, h4, h5, h6 {
+    background-color: transparent !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 0.5em !important;
+    font-weight: bold !important;
+  }
+  
+  p, li {
+    page-break-inside: avoid !important;
+  }
+
+  a {
+    text-decoration: underline !important;
+    word-wrap: break-word !important;
+  }
+
+  .border, .border-t, .border-b, .border-l, .border-r {
+    border-color: #000000 !important;
+    border-width: 1px !important;
+  }
+
+  /* Hide elements that are not useful in print */
+  iframe, 
+  button, 
+  form,
+  input,
+  #vitrine,
+  #galeria,
+  #agenda,
+  #depoimentos {
+    display: none !important;
+  }
+  
+  /* Ensure SVGs like icons are visible if needed, but remove decorative ones */
+  svg {
+    display: inline-block !important;
+    width: 1.5em !important;
+    height: 1.5em !important;
+    vertical-align: middle !important;
+    margin-right: 0.5em !important;
+  }
+  
+  .grid {
+    display: block !important;
+  }
+
+  .grid > * {
+    display: block !important;
+    margin-bottom: 2rem !important;
+    width: 100% !important;
+  }
+  
+  footer {
+    padding: 2rem 0 !important;
+    border-top: 3px solid black !important;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    margin-top: 2rem !important;
+    display: block !important;
+  }
+  
+  #localizacao {
+    padding: 2rem 0 !important;
+    border-top: 3px solid black !important;
+    page-break-inside: avoid;
+    display: block !important;
+  }
+
+  #localizacao, footer {
+    font-size: 16pt !important; 
+  }
+  
+  footer ul, #localizacao ul {
+    list-style-type: none !important;
+    padding-left: 0 !important;
+    margin-top: 1em !important;
+  }
+  
+  footer li, #localizacao li {
+    margin-bottom: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+  th, td {
+    border: 1px solid #000 !important;
+    padding: 12px !important;
+    text-align: left !important;
+  }
+}
+
+/* High Contrast Mode Adjustments (without root CSS filter so position: fixed stays intact) */
+html.high-contrast body {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+html.high-contrast.dark body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+html.high-contrast main,
+html.high-contrast section,
+html.high-contrast header,
+html.high-contrast footer,
+html.high-contrast aside {
+  border-color: #000000 !important;
+}
+html.high-contrast.dark main,
+html.high-contrast.dark section,
+html.high-contrast.dark header,
+html.high-contrast.dark footer,
+html.high-contrast.dark aside {
+  border-color: #ffffff !important;
+}
+html.high-contrast * {
+  border-color: currentColor !important;
+}
+html.high-contrast a,
+html.high-contrast button {
+  text-underline-offset: 4px;
+}
+html.high-contrast p,
+html.high-contrast span,
+html.high-contrast label,
+html.high-contrast h1,
+html.high-contrast h2,
+html.high-contrast h3,
+html.high-contrast h4 {
+  text-shadow: none !important;
+}
+
+/* Respect OS reduced motion across CSS animations/transitions */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessibility Feature Fonts */
+
+html.font-dyslexic { font-family: 'Comic Sans MS', 'Chalkboard SE', 'Lexend', sans-serif !important; }
+html.font-dyslexic * { font-family: 'Comic Sans MS', 'Chalkboard SE', 'Lexend', sans-serif !important; }
+
+/* Letter spacing for older adults */
+
+html.tracking-wide * { letter-spacing: 0.05em !important; }
+html.tracking-widest * { letter-spacing: 0.1em !important; }
+
+/* Keep headers, navigation bars and their contents stably sized and aligned */
+header, header *, nav, nav * {
+  letter-spacing: normal !important;
+}
+
+/* Font size overrides (Scaling root element for REM based sizing) */
+/* More conservative scale to avoid breaking layouts, especially on mobile */
+html.text-small { font-size: 15px !important; }
+html.text-medium { font-size: 16px !important; }
+html.text-large { font-size: 17px !important; }
+html.text-xlarge { font-size: 18.5px !important; }
+
+@media (max-width: 640px) {
+  html.text-small { font-size: 15px !important; }
+  html.text-medium { font-size: 16px !important; }
+  html.text-large { font-size: 16.5px !important; }
+  html.text-xlarge { font-size: 17.5px !important; }
+}
+
+/* Focus highlights for accessibility */
+*:focus-visible {
+  outline: 4px solid var(--focus-ring) !important;
+  outline-offset: 4px !important;
+}
+html.high-contrast *:focus-visible {
+  outline: 6px solid #eab308 !important;
+}
+
+
+
+
+
+

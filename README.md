@@ -1,137 +1,61 @@
-<div align="center">
+# Associação Julieta Barros — Vitrine Digital & Gestão Comunitária
 
-# 🪟 windows-optimizer
+Aplicação web moderna (Frontend SPA) desenvolvida para a **Associação Julieta Barros** e o **Departamento de Vendas Rosa Mística**, localizada na Zona Norte de Natal/RN.
 
-**Post-install Windows 11 optimization scripts — safe, documented, and fully reversible.**
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Windows 11](https://img.shields.io/badge/Windows-11-0078D4?logo=windows)](https://www.microsoft.com/windows/windows-11)
-[![Batch + PowerShell](https://img.shields.io/badge/Batch_%2B_PowerShell-hybrid-5391FE?logo=powershell)](scripts/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-**🌐 Language / Idioma:** &nbsp; [🇺🇸 English](README.md) &nbsp;|&nbsp; [🇧🇷 Português](docs/pt-BR.md)
-
-</div>
+O projeto foi projetado com foco em **acessibilidade para a terceira idade**, **alta usabilidade**, estética acolhedora em tons terrosos/verdes e arquitetura desacoplada pronta para consumo de API REST.
 
 ---
 
-## ✨ What it does
+## 🚀 Tecnologias Utilizadas
 
-A collection of `.bat` scripts (with inline PowerShell for system ops) designed to make a clean Windows 11 install feel faster, quieter, and more private — **without touching anything that would break your system**.
-
-Every script is:
-- ✅ **Safe** — targets only non-essential services and policy registry keys
-- ✅ **Reversible** — `10_undo_all.bat` restores Windows defaults
-- ✅ **Transparent** — each change is logged with a timestamp
-- ✅ **Documented** — see [docs/RISKS.md](docs/RISKS.md) for a full breakdown
-
----
-
-## 🚀 Quick Start
-
-> **Requires:** Windows 11, Administrator privileges.
-
-```batch
-git clone https://github.com/YOUR_USER/win-optimizer.git
-cd win-optimizer\scripts
-
-:: Right-click > Run as administrator
-00_run_all.bat
-```
-
-You can also run each script **individually** — they work standalone.
+* **React 19** com **Vite 6**
+* **TypeScript**
+* **Tailwind CSS v4** (tema dinâmico Claro/Escuro e Modo Alto Contraste)
+* **React Router v7**
+* **Lucide React** (Ícones acessíveis)
+* **Framer Motion** (Microinterações suaves)
+* **Vite PWA** (Suporte a Progressive Web App e modo offline)
 
 ---
 
-## 📂 Project Structure
+## 📦 Como Executar Localmente
 
-```
-win-optimizer/
-├── scripts/
-│   ├── 00_run_all.bat          ← Master launcher (admin auto-elevation)
-│   ├── 01_restore_point.bat    ← Creates restore point FIRST
-│   ├── 02_services_manual.bat  ← Non-essential services → Manual
-│   ├── 03_disable_recall.bat   ← Disable Windows Recall (AI snapshots)
-│   ├── 04_disable_telemetry.bat← Telemetry + DiagTrack off
-│   ├── 05_power_plan.bat       ← High Performance plan
-│   ├── 06_visual_tweaks.bat    ← Disable animations/transparency
-│   ├── 07_network_tweaks.bat   ← Nagle off, TCP tuning, DNS cache
-│   ├── 08_privacy_tweaks.bat   ← Ads ID, location, activity history
-│   ├── 09_startup_cleanup.bat  ← Startup audit (read-only)
-│   ├── 10_undo_all.bat         ← Revert EVERYTHING to defaults
-│   ├── 11_remove_bloatware.bat ← Remove non-essential UWP apps
-│   ├── 12_system_cleanup.bat   ← Clear DNS cache, Temp, and Recycle Bin
-│   └── _lib/                   ← Shared: colors, logger, admin-check
-├── tools/
-│   └── check_status.bat        ← Audit current state (no changes)
-└── docs/
-    ├── TIPS.md                 ← Clean install tips & best practices
-    ├── RISKS.md                ← Risk breakdown per script
-    └── pt-BR.md                ← Portuguese documentation
-```
+### Pré-requisitos
+* **Node.js** (versão 18 ou superior)
+* **npm** ou gerenciador de pacotes equivalente
+
+### Instalação e Execução
+
+1. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+2. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+
+3. Abra seu navegador em:
+   ```text
+   http://localhost:3000
+   ```
 
 ---
 
-## 📋 Scripts Reference
+## 🛠️ Scripts Disponíveis
 
-| Script | Category | Risk | Reversible |
-|--------|----------|------|-----------|
-| `01_restore_point` | Safety | None | — |
-| `02_services_manual` | Performance | 🟢 Low | ✓ |
-| `03_disable_recall` | Privacy | 🟢 Low | ✓ |
-| `04_disable_telemetry` | Privacy | 🟢 Low | ✓ |
-| `05_power_plan` | Performance | 🟢 Low | ✓ |
-| `06_visual_tweaks` | Performance | 🟢 Low | ✓ |
-| `07_network_tweaks` | Performance | 🟡 Medium | ✓ |
-| `08_privacy_tweaks` | Privacy | 🟢 Low | ✓ |
-| `09_startup_cleanup` | Audit | None (read-only) | — |
-| `10_undo_all` | Revert | None | — |
-| `11_remove_bloatware` | Cleanup | 🟢 Low | ✓ Store |
-| `12_system_cleanup` | Cleanup | None | — |
-| `check_status` | Audit | None (read-only) | — |
-
-> Full risk description for each script: [docs/RISKS.md](docs/RISKS.md)  
-> Clean install tips and best practices: [docs/TIPS.md](docs/TIPS.md)
+* `npm run dev`: Inicia o servidor de desenvolvimento na porta 3000 com Hot Module Reloading (HMR).
+* `npm run build`: Compila e minifica a aplicação para produção na pasta `dist/`.
+* `npm run preview`: Testa a compilação de produção localmente.
+* `npm run lint`: Valida a integridade de tipos do TypeScript (`tsc --noEmit`).
 
 ---
 
-## 🔄 Reverting Changes
+## ♿ Recursos de Acessibilidade
 
-Run `10_undo_all.bat` as Administrator to restore all settings to Windows defaults.
-Alternatively, use the System Restore point created in step 01.
-
----
-
-## 📦 What is NOT changed
-
-To avoid any chance of breaking your system, these are intentionally left alone:
-
-- ❌ No hosts file modifications (see [docs/RISKS.md](docs/RISKS.md) for optional extra steps)
-- ❌ No Windows Defender / Security Center changes
-- ❌ No core Windows Update policy changes
-- ❌ No hardware driver tweaks
-- ❌ No CPU/GPU overclocking
-
----
-
-## 🌐 Português
-
-Documentação em PT-BR disponível em [docs/pt-BR.md](docs/pt-BR.md).
-
----
-
-## 🤝 Contributing
-
-Issues and PRs are welcome! Please read [docs/RISKS.md](docs/RISKS.md) before submitting new tweaks.
-New scripts must follow the `_lib/` conventions (admin check, logger, colors) and must include a corresponding undo step in `10_undo_all.bat`.
-
----
-
-## 📄 License
-
-MIT — see [LICENSE](LICENSE).
-
-## Author
-
-**Alyson** · [github.com/Alyson256](https://github.com/Alyson256)
-
+* Alternador de Tema (Claro / Escuro / Alto Contraste).
+* Ajuste de tamanho de fonte e espaçamento de letras pensado para idosos.
+* Suporte a navegação por teclado e leitores de tela com `aria-live`.
+* Leitura de texto por voz integrada (Web Speech API).
+* Design responsivo adaptável para celulares, tablets e monitores desktop.
