@@ -7,7 +7,9 @@ Aplicacao web moderna (Frontend SPA) desenvolvida para a Associacao Julieta Barr
 O projeto foi concebido para atender cooperativas locais de artesanato sob o modelo O2O (Online-to-Offline), priorizando acessibilidade para pessoas idosas, usabilidade objetiva e conformidade estrita com a LGPD (Lei Geral de Protecao de Dados).
 
 ![Preview do site](src/documents/img/preview.png)
-![login](src/documents/img/login.png)
+
+
+![login](src/documents/img/acess.png)
 
 ---
 
