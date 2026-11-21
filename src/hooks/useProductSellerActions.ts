@@ -125,7 +125,7 @@ export function useProductSellerActions({
         setSellerReceiveNow(Boolean(res.settings.receiveContactsNow));
       })
       .catch(() => {
-        // Ignore if not configured yet on server
+        // Ignora caso ainda não esteja configurado no servidor
       });
     return () => {
       active = false;

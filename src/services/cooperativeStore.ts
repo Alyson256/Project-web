@@ -70,7 +70,7 @@ export function normalizeSiteContent(raw?: Partial<CooperativeSiteContent> | nul
       }
     }
   } catch {
-    // Ignore storage read errors
+    // Ignora erros de leitura do armazenamento local
   }
 
   const cachedSite = raw ?? readCachedStore().siteContent;
@@ -118,7 +118,7 @@ export function writeCachedStore(patch: Partial<CooperativeStorePayload>): void 
       window.dispatchEvent(new CustomEvent(SITE_CONTENT_UPDATED_EVENT, { detail: patch.siteContent }));
     }
   } catch {
-    // Ignore storage quota errors
+    // Ignora erros de cota do armazenamento local
   }
 }
 

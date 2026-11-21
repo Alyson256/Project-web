@@ -161,7 +161,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.social_instagram_aria': 'Abrir Instagram da Associação em nova aba',
     'footer.social_facebook_aria': 'Abrir Facebook da Associação em nova aba',
 
-    // Accessibility Menu
+    // Menu de Acessibilidade
     'access.modal_title': 'Acessibilidade',
     'access.modal_subtitle': 'Ajuste a tela para o seu conforto',
     'access.theme_title': 'Cores da tela (Tema)',
@@ -485,7 +485,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.social_instagram_aria': 'Open Association Instagram in a new tab',
     'footer.social_facebook_aria': 'Open Association Facebook in a new tab',
 
-    // Accessibility Menu
+    // Menu de Acessibilidade
     'access.modal_title': 'Accessibility',
     'access.modal_subtitle': 'Adjust the screen for your comfort',
     'access.theme_title': 'Screen Colors (Theme)',

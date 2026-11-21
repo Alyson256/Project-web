@@ -1,3 +1,4 @@
+// Autenticação legada temporária em transição para sessões/JWT da API Django
 import { auth } from './firebase';
 import type { ProductItem } from '../types';
 
@@ -77,7 +78,7 @@ async function resolveAuthToken(overrideToken?: string | null): Promise<string |
     try {
       return await auth.currentUser.getIdToken();
     } catch {
-      // Fallback handled below
+      // Fallback tratado abaixo
     }
   }
   if (import.meta.env.DEV) {
@@ -91,7 +92,7 @@ async function resolveAuthToken(overrideToken?: string | null): Promise<string |
         }
       }
     } catch {
-      // Ignore storage error
+      // Ignora erro de acesso ao armazenamento local
     }
   }
   return null;
@@ -147,7 +148,7 @@ async function apiRequest<T = any>(
       const errData = await response.json();
       errorMessage = extractApiErrorMessage(errData, response.status);
     } catch {
-      // Ignore JSON parse error on error response
+      // Ignora erro de interpretação de JSON na resposta de erro
     }
     const apiError: ApiError = new Error(errorMessage);
     apiError.status = response.status;

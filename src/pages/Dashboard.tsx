@@ -77,7 +77,7 @@ export default function Dashboard() {
         parsed.role = newRole;
         localStorage.setItem('potengi_current_user', JSON.stringify(parsed));
       } catch {
-        // Ignore storage errors
+        // Ignora erros de armazenamento local
       }
     }
     if (newRole && localStorage.getItem(`guide_dismissed_${newRole}`) !== 'true') {

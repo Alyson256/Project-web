@@ -110,7 +110,7 @@ export function clearOptionalExperienceStorage(): void {
       localStorage.removeItem(key);
     }
   } catch {
-    // ignore storage errors
+    // Ignora erros de armazenamento local
   }
 }
 
@@ -121,7 +121,7 @@ export function clearOptionalShowcaseStorage(): void {
       localStorage.removeItem(key);
     }
   } catch {
-    // ignore storage errors
+    // Ignora erros de armazenamento local
   }
 }
 
@@ -160,7 +160,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(next));
     } catch {
-      // ignore storage quota errors
+      // Ignora erros de cota do armazenamento local
     }
     writeConsentCookie(next);
 

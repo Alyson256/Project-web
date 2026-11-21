@@ -50,6 +50,6 @@ export function syncPublishedProductToPublicStorage(action: 'upsert' | 'remove',
     }
     localStorage.setItem('potengi_public_products', JSON.stringify(baseList));
   } catch {
-    // Ignore storage errors
+    // Ignora erros de armazenamento local
   }
 }

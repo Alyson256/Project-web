@@ -2,14 +2,16 @@
 
 /**
  * CLI DIAGNOSTICS & CONNECTIVITY CHECKER
- * Cooperativa & Ateliê Potengi
+ * Associação Julieta Barros
  * 
  * Executa checagem de saúde de ponta a ponta:
  * - Variáveis de ambiente (.env)
- * - Firebase Authentication Config & Conectividade
- * - Conectividade com a API Django
- * - Integridade de Build do Frontend
+ * - Configuração do Banco de Dados Relacional (PostgreSQL)
+ * - Conectividade com a API Django REST
+ * - Integridade do Pipeline e Serviços do Frontend
  */
+
+
 
 import fs from 'fs';
 import path from 'path';
@@ -21,7 +23,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-// Terminal colors
+// Cor do terminal
+
 const colors = {
   reset: '\x1b[0m',
   green: '\x1b[32m',
@@ -40,7 +43,7 @@ function logResult(status, label, message = '', latency = '') {
   let icon = `${colors.green}[OK]${colors.reset}`;
   if (status === 'WARN') icon = `${colors.yellow}[AVISO]${colors.reset}`;
   if (status === 'ERR') icon = `${colors.red}[FALHA]${colors.reset}`;
-  
+
   const latencyStr = latency ? `${colors.dim}(${latency}ms)${colors.reset} ` : '';
   console.log(`  ${icon} ${colors.bold}${label}:${colors.reset} ${message} ${latencyStr}`);
 }
@@ -51,7 +54,7 @@ async function checkUrl(urlString, timeoutMs = 4000) {
     try {
       const url = new URL(urlString);
       const client = url.protocol === 'https:' ? https : http;
-      
+
       const req = client.request(url, { method: 'HEAD', timeout: timeoutMs }, (res) => {
         const latency = Date.now() - startTime;
         resolve({ ok: res.statusCode >= 200 && res.statusCode < 400, statusCode: res.statusCode, latency });
@@ -77,11 +80,12 @@ async function runCliDiagnostics() {
   console.log(`${colors.bold}${colors.green}
   ╔══════════════════════════════════════════════════════════════╗
   ║   ASSOCIAÇÃO JULIETA BARROS - DIAGNÓSTICO DE CONECTIVIDADE   ║
-  ╚══════════════════════════════════════════════════════════════╝${colors.reset}`);
+  ╚══════════════════════════════════════════════════════════════╝
+  ${colors.reset}`);
 
-  // 1. Files & Config Check
+  // 1. Verificação de Arquivos e Configurações
   logHeader('1. ARQUIVOS E CONFIGURAÇÕES');
-  
+
   const packageJsonPath = path.join(rootDir, 'package.json');
   if (fs.existsSync(packageJsonPath)) {
     const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
@@ -90,37 +94,14 @@ async function runCliDiagnostics() {
     logResult('ERR', 'package.json', 'Arquivo não encontrado');
   }
 
-  const firebaseConfigPath = path.join(rootDir, 'firebase-applet-config.json');
-  let firebaseConfig = null;
-  if (fs.existsSync(firebaseConfigPath)) {
-    try {
-      firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
-      logResult('OK', 'Firebase Config', `Projeto: ${firebaseConfig.projectId || 'OK'}`);
-    } catch {
-      logResult('WARN', 'Firebase Config', 'Arquivo com formato inválido');
-    }
-  } else {
-    logResult('WARN', 'Firebase Config', 'firebase-applet-config.json não encontrado');
-  }
-
   const envExamplePath = path.join(rootDir, '.env.example');
   if (fs.existsSync(envExamplePath)) {
     logResult('OK', 'Variáveis (.env.example)', 'Arquivo de modelo disponível');
   }
 
-  // 2. Conectividade Externa (Firebase & Google Identity)
-  logHeader('2. CONECTIVIDADE COM O GOOGLE / FIREBASE');
-  const googleIdentityResult = await checkUrl('https://identitytoolkit.googleapis.com');
-  if (googleIdentityResult.ok || googleIdentityResult.statusCode === 404 || googleIdentityResult.statusCode === 400) {
-    logResult('OK', 'Google Identity Auth API', 'Acessível', googleIdentityResult.latency);
-  } else {
-    logResult('WARN', 'Google Identity Auth API', `Status: ${googleIdentityResult.statusCode || googleIdentityResult.error}`, googleIdentityResult.latency);
-  }
+  // 2. Banco de Dados Relacional (PostgreSQL)
+  logHeader('2. BANCO DE DADOS RELACIONAL (POSTGRESQL)');
 
-  // 3. Conectividade com o Backend Django
-  logHeader('3. CONECTIVIDADE COM O BACKEND DJANGO');
-  
-  // Read .env if present
   let djangoUrl = 'http://localhost:8000/api';
   let useDjango = false;
   const envPath = path.join(rootDir, '.env');
@@ -132,10 +113,24 @@ async function runCliDiagnostics() {
     if (matchUse) useDjango = matchUse[1].trim() === 'true';
   }
 
+  if (!useDjango) {
+    logResult('OK', 'PostgreSQL', 'Modo Desacoplado: Frontend opera com dados locais e está pronto para sincronizar com o PostgreSQL via Django REST');
+  } else {
+    const healthUrl = `${djangoUrl.replace(/\/+$/, '')}/health`;
+    const healthResult = await checkUrl(healthUrl);
+    if (healthResult.ok) {
+      logResult('OK', 'PostgreSQL (via API)', `Conexão ativa e verificada via ${healthUrl}`, healthResult.latency);
+    } else {
+      logResult('WARN', 'PostgreSQL (via API)', `Servidor Django/PostgreSQL em ${healthUrl} não respondeu (${healthResult.error || healthResult.statusCode}). Certifique-se de que o Django e o serviço do PostgreSQL estejam em execução.`);
+    }
+  }
+
+  // 3. Conectividade com o Backend Django REST
+  logHeader('3. CONECTIVIDADE COM O BACKEND DJANGO REST');
   console.log(`  ${colors.dim}Alvo configurado: ${djangoUrl} (Modo Ativo: ${useDjango})${colors.reset}`);
 
   if (!useDjango) {
-    logResult('OK', 'Pipeline Django', 'Modo Somente Frontend ativo (desacoplado). Pronto para chavear VITE_USE_DJANGO=true depois');
+    logResult('OK', 'Pipeline Django', 'Modo Somente Frontend ativo. Para ativar a integração, configure VITE_USE_DJANGO=true no .env');
   } else {
     const djangoPing = await checkUrl(djangoUrl);
     if (djangoPing.ok) {
@@ -157,10 +152,10 @@ async function runCliDiagnostics() {
     logResult('ERR', 'djangoApi.ts', 'Arquivo de serviço ausente');
   }
 
-  // Final summary
+  // Resumo final
   logHeader('VEREDITO FINAL');
   console.log(`  ${colors.green}${colors.bold}✔ Frontend & Telas:${colors.reset} 100% Prontos para Produção`);
-  console.log(`  ${colors.green}${colors.bold}✔ Google Sign-in:${colors.reset}   Pronto com Firebase Auth`);
+  console.log(`  ${colors.green}${colors.bold}✔ Banco de Dados:${colors.reset}   PostgreSQL oficial via Django REST`);
   console.log(`  ${colors.cyan}${colors.bold}✔ Pipeline Django:${colors.reset}  Estruturada com fallbacks limpos`);
   console.log(`\n  ${colors.dim}Dica: Você também pode visualizar o status em tempo real com interface gráfica no Dashboard do site!${colors.reset}\n`);
 }

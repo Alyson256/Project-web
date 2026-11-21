@@ -77,7 +77,7 @@ function writePublicProductsSnapshot(realProducts: ProductItem[]): void {
       .map(mapProductToShowcase);
     localStorage.setItem(PUBLIC_PRODUCTS_STORAGE_KEY, JSON.stringify(publicList));
   } catch {
-    // Ignore storage quota errors
+    // Ignora erros de cota do armazenamento local
   }
 }
 

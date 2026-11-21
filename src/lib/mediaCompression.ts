@@ -88,7 +88,7 @@ function getPreferredOutputFormat(canvas: HTMLCanvasElement): 'image/webp' | 'im
       return 'image/webp';
     }
   } catch {
-    // Fallback to JPEG
+    // Fallback para formato JPEG
   }
   return 'image/jpeg';
 }

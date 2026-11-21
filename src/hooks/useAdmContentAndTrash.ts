@@ -37,7 +37,7 @@ function getInitialTrash(): TrashItem[] {
       return cached.trash as TrashItem[];
     }
   } catch {
-    // ignore storage errors
+    // Ignora erros de armazenamento local
   }
   return [];
 }
@@ -120,7 +120,7 @@ export function useAdmContentAndTrash({
       localStorage.removeItem('potengi_public_story');
       localStorage.removeItem('potengi_public_gallery');
     } catch {
-      // ignore storage errors
+      // Ignora erros de armazenamento local
     }
     void getIdToken()
       .catch(() => null)

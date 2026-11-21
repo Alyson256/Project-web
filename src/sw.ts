@@ -113,7 +113,7 @@ async function broadcastConnectivity(
       channel.postMessage(message);
       channel.close();
     } catch {
-      // Ignore BroadcastChannel restriction in isolated contexts
+      // Ignora restrições do BroadcastChannel em contextos isolados
     }
   }
 
@@ -126,7 +126,7 @@ async function broadcastConnectivity(
       client.postMessage(message);
     }
   } catch {
-    // Ignore client postMessage errors
+    // Ignora erros de envio de mensagem aos clientes
   }
 }
 

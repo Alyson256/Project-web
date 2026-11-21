@@ -92,7 +92,7 @@ export function HelpSupportModal({
         try {
           recognitionRef.current.abort();
         } catch {
-          // Ignore abort errors
+          // Ignora erros de cancelamento do reconhecimento de voz
         }
         recognitionRef.current = null;
       }
@@ -107,7 +107,7 @@ export function HelpSupportModal({
         try {
           recognitionRef.current.abort();
         } catch {
-          // Ignore abort errors
+          // Ignora erros de cancelamento do reconhecimento de voz
         }
         recognitionRef.current = null;
       }

@@ -72,7 +72,7 @@ export default function Landing() {
         return mapPublicEvents(cached.publicEvents);
       }
     } catch {
-      // ignore
+      // Ignora erro de leitura local
     }
     return [];
   });
@@ -129,7 +129,7 @@ export default function Landing() {
           try {
             localStorage.setItem('potengi_public_events', JSON.stringify(store.publicEvents));
           } catch {
-            // ignore
+            // Ignora erro de leitura local
           }
         }
         if (store.siteContent) {
@@ -198,7 +198,7 @@ export default function Landing() {
         JSON.stringify({ searchQuery, activeFilter, sortOption })
       );
     } catch {
-      // ignore storage quota errors
+      // Ignora erros de cota do armazenamento local
     }
   }, [canStoreShowcase, searchQuery, activeFilter, sortOption]);
 

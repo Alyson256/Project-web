@@ -447,8 +447,8 @@ export function CookieConsentCenter() {
                       </li>
                       <li>
                         {isPt
-                          ? 'O login com conta Google (via Firebase Authentication) é usado apenas para identificar visitantes autenticados, artesãos e gestores.'
-                          : 'Google Sign-In (via Firebase Authentication) is used strictly to authenticate visitors, artisans, and managers.'}
+                          ? 'O login de acesso é usado estritamente para identificar e proteger artesãos, gestores e colaboradores autorizados.'
+                          : 'Access authentication is used strictly to identify and protect authorized artisans, managers, and staff.'}
                       </li>
                       <li>
                         {isPt

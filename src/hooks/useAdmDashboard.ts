@@ -862,7 +862,7 @@ export function useAdmDashboard({
           .catch(() => null)
           .then((token) => persistCooperativeSection('publicEvents', updatedPublicEvents, token));
       } catch {
-        // ignore storage errors
+        // Ignora erros de armazenamento local
       }
     }
 

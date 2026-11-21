@@ -174,7 +174,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
           }
         } catch {
-          // Ignore storage error
+          // Ignora erro de acesso ao armazenamento local
         }
       }
 
@@ -184,7 +184,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
           await logoutFromGoogle();
         } catch {
-          // Ignore secondary signOut errors
+          // Ignora erros secundários de encerramento de sessão
         }
         setUser(null);
         setRole(null);
@@ -237,7 +237,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           profile: fullProfile,
         }));
       } catch {
-        // Ignore storage quota errors
+        // Ignora erros de cota do armazenamento local
       }
 
       setLoading(false);

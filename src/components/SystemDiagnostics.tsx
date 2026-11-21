@@ -75,12 +75,12 @@ export function SystemDiagnostics() {
     },
     auth_firebase: {
       id: 'auth_firebase',
-      name: 'Firebase Auth (Google Identity)',
-      friendlyName: 'Entrada com Conta do Google',
+      name: 'Autenticação & Provedor de Acesso',
+      friendlyName: 'Autenticação de Usuários',
       category: 'auth',
       status: 'idle',
       message: 'Aguardando execução do teste',
-      friendlyMessage: 'Sistema de login do Google pronto para receber produtores.',
+      friendlyMessage: 'Sistema de autenticação pronto para uso.',
     },
     auth_token: {
       id: 'auth_token',

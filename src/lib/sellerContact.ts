@@ -66,7 +66,7 @@ export function recordSellerContact(): boolean {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(activeTimestamps));
   } catch {
-    // Ignore storage errors
+    // Ignora erros de armazenamento local
   }
   return true;
 }
@@ -86,7 +86,7 @@ export function saveSellerContactSettings(settings: SellerContactSettings): void
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
     window.dispatchEvent(new CustomEvent('potengi_seller_settings_changed', { detail: settings }));
   } catch {
-    // Ignore storage errors
+    // Ignora erros de armazenamento local
   }
 }
 

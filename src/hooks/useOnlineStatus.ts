@@ -191,7 +191,7 @@ export async function verifyConnection(): Promise<boolean> {
     try {
       navigator.serviceWorker.controller.postMessage({ type: 'SW_PING' });
     } catch {
-      // Fallback handled below
+      // Fallback tratado abaixo
     }
   }
 
@@ -209,7 +209,7 @@ export function clearServiceWorkerApiCache(): void {
   try {
     navigator.serviceWorker.controller?.postMessage({ type: 'SW_CLEAR_API_CACHE' });
   } catch {
-    // Ignore SW message error
+    // Ignora erro de envio de mensagem ao Service Worker
   }
 }
 

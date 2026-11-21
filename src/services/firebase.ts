@@ -1,3 +1,19 @@
+/**
+ * @deprecated [LEGADO - EM DESCONTINUAÇÃO / DEPRECATED]
+ *
+ * DIRETRIZ DE ARQUITETURA DO PROJETO:
+ * -------------------------------------------------------------------------
+ * A pasta deste repositório contém ESTRITAMENTE a camada de Frontend (UI/UX).
+ * Não deve existir banco de dados (Firestore / NoSQL) conectado diretamente no cliente.
+ *
+ * Toda a persistência de dados, regras de negócio e controle de permissões (RBAC)
+ * pertencem exclusivamente ao backend em Python (Django REST Framework) com PostgreSQL.
+ *
+ * Este módulo permanece temporariamente apenas como adapter transitório de autenticação
+ * da interface e será totalmente removido assim que a integração da API Django for homologada.
+ * -------------------------------------------------------------------------
+ */
+
 import { initializeApp, getApps, getApp, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 import {
   browserLocalPersistence,
@@ -11,7 +27,10 @@ import {
   type Auth,
   type User,
 } from 'firebase/auth';
+
 const rawApiKey = import.meta.env.VITE_FIREBASE_API_KEY || '';
+
+/** @deprecated Módulo de autenticação legado em descontinuação. */
 export const isFirebaseConfigured = Boolean(rawApiKey && rawApiKey.trim().length > 5);
 
 const firebaseConfig: FirebaseOptions = {
@@ -23,17 +42,20 @@ const firebaseConfig: FirebaseOptions = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:1234567890:web:abcdef123456',
 };
 
-// Padrão singleton para evitar o erro 'Firebase App [DEFAULT] already exists'
+/** @deprecated Instância legada em descontinuação. O backend oficial é Django + PostgreSQL. */
 export const firebaseApp: FirebaseApp =
   getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
+/** @deprecated Autenticador legado em descontinuação. */
 export const auth: Auth = getAuth(firebaseApp);
 
+/** @deprecated Provedor de login Google legado em descontinuação. */
 export const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
+/** @deprecated Método transitório de login Google. A autenticação oficial migrará para Django REST. */
 export async function loginWithGoogle(): Promise<User> {
   try {
     await setPersistence(auth, browserLocalPersistence).catch(() => {
@@ -53,6 +75,7 @@ export async function loginWithGoogle(): Promise<User> {
   }
 }
 
+/** @deprecated Método transitório de redirecionamento Google. */
 export async function loginWithGoogleRedirect(): Promise<void> {
   await setPersistence(auth, browserLocalPersistence).catch(() => {
     // Fallback para persistência padrão do navegador
@@ -60,6 +83,7 @@ export async function loginWithGoogleRedirect(): Promise<void> {
   await signInWithRedirect(auth, googleProvider);
 }
 
+/** @deprecated Leitor transitório de resultado de redirecionamento. */
 export async function consumeGoogleRedirectResult(): Promise<User | null> {
   try {
     const result = await getRedirectResult(auth);
@@ -70,6 +94,7 @@ export async function consumeGoogleRedirectResult(): Promise<User | null> {
   }
 }
 
+/** @deprecated Logout legado em descontinuação. */
 export async function logoutFromGoogle(): Promise<void> {
   try {
     await signOut(auth);
@@ -79,6 +104,7 @@ export async function logoutFromGoogle(): Promise<void> {
   }
 }
 
+/** @deprecated Tratamento legado de mensagens de erro. */
 export function getFriendlyGoogleAuthErrorMessage(
   error: unknown,
   language: 'pt' | 'en' = 'pt'

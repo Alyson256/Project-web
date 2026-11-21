@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public static getDerivedStateFromError(error: Error): State {
-    // Update state so the next render will show the fallback UI.
+    // Atualiza o estado para que a próxima renderização exiba a tela de fallback
     return { hasError: true, error };
   }
 
